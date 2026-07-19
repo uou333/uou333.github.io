@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>谢佑萍 - 个人简历</title>
+  <!-- 引入 Chart.js 用来画技能雷达图 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ---------- 基础样式 ---------- */
+    :root {
+      --bg: #ffffff;
+      --text: #2d3436;
+      --card: #f8f9fa;
+      --primary: #0984e3;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    /* 暗色模式变量 */
+    body.dark {
+      --bg: #1a1a2e;
+      --text: #eeeeee;
+      --card: #16213e;
+      --primary: #6c5ce7;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    /* 头部区域 */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+    }
+    h1 { margin: 0 0 10px; }
+    .subtitle { color: #636e72; margin-bottom: 20px; }
+
+    /* 卡片区块 */
+    .section {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      margin-top: 0;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 8px;
+      display: inline-block;
+    }
+
+    /* 暗色模式按钮 */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card);
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 999;
+    }
+
+    /* 雷达图容器 */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #636e72;
+      font-size: 14px;
+    }
+
+    /* 响应式：手机上看也不乱 */
+    @media (max-width: 600px) {
+      .container { padding: 20px 15px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 暗色模式切换按钮 -->
+  <button class="theme-toggle" id="themeBtn" title="切换暗色模式">🌓</button>
+
+  <div class="container">
+  
+    <div class="header">
+      <div class="avatar">谢</div>   <!-- 这里写你姓氏首字或放图片 -->
+      <h1>谢佑萍</h1>                  <!-- 你的姓名 -->
+      <p class="subtitle">计算机科学与技术 · 2027届本科 · 求职意向：Java/前端实习</p>
+      <p>📧 zhangsan@example.com  |  📱 138-xxxx-xxxx  |  🔗 github.com/zhangsan</p>
+    </div>
+
+    <!-- ========== 教育背景 ========== -->
+    <div class="section">
+      <h2>教育经历</h2>
+      <p><strong>XX大学</strong> · 计算机科学与技术 · 本科 · 2023.09 - 2027.06</p>
+      <p>主修课程：数据结构、操作系统、计算机网络、数据库系统、Java程序设计</p>
+    </div>
+
+    <!-- ========== 项目经历：把课程设计放上来 ========== -->
+    <div class="section">
+      <h2>图书馆管理系统</h2>
+      <div style="margin-bottom:15px;">
+        <strong>📋 学生信息管理系统</strong> | Java + MySQL + Swing | 2024.03 - 2024.06
+        <ul>
+          <li>独立完成从需求分析、数据库设计到界面开发的全流程</li>
+          <li>实现了学生信息的增删改查、条件筛选和分页功能</li>
+          <li>使用MySQL存储数据，编写了10+条SQL查询语句</li>
+        </ul>
+      </div>
+      <div>
+        <strong>🔧 简易词法分析器</strong> | C++ | 2024.10 - 2024.12
+        <ul>
+          <li>基于有限状态机识别关键字、标识符、运算符等Token</li>
+          <li>能够处理简单的词法错误并给出提示信息</li>
+        </ul>
+      </div>
+      <!-- 你可以随意添加或修改 -->
+    </div>
+
+    <!-- ========== 技能雷达图 ========== -->
+    <div class="section">
+      <h2>技能掌握</h2>
+      <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+      <p style="text-align:center; margin-top:10px; color:#636e72;">数据为自评掌握程度（满分100）</p>
+    </div>
+
+    <!-- ========== 个人优势 ========== -->
+    <div class="section">
+      <h2>自我评价</h2>
+      <p>• 基础扎实，熟悉常用数据结构和算法，LeetCode刷题80+</p>
+      <p>• 动手能力强，热爱通过项目学习，有快速搭建和部署应用的能力</p>
+      <p>• 善于使用Git、Markdown等工具，具备良好的代码规范意识</p>
+    </div>
+
+    <div class="footer">
+      © 谢佑萍 · 托管于 <a href="https://pages.github.com" target="_blank">GitHub Pages</a>
+    </div>
+  </div>
+
+  <script>
+    // ---------- 暗色模式逻辑 ----------
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+
+    // 检查本地存储里是否之前切换过暗色模式
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      // 记住用户选择
+      if (body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // ---------- 技能雷达图 ----------
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Java', 'Python', '数据结构', 'MySQL', 'Linux', '前端基础', 'Git'],
+        datasets: [{
+          label: '技能熟练度',
+          data: [80, 65, 75, 70, 50, 60, 85],  // 根据自己情况改这些数字（0-100）
+          backgroundColor: 'rgba(9, 132, 227, 0.2)',
+          borderColor: 'rgba(9, 132, 227, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(9, 132, 227, 1)',
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: { stepSize: 20 }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
