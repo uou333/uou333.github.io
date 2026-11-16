@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>谢佑萍 - 个人简历</title>
-  <!-- 引入 Chart.js 用来画技能雷达图 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ---------- 基础样式 ---------- */
     :root {
       --bg: #ffffff;
       --text: #2d3436;
       --card: #f8f9fa;
       --primary: #0984e3;
+      --muted: #636e72;
     }
     body {
       margin: 0;
@@ -21,19 +20,18 @@
       color: var(--text);
       transition: background 0.3s, color 0.3s;
     }
-    /* 暗色模式变量 */
     body.dark {
       --bg: #1a1a2e;
       --text: #eeeeee;
       --card: #16213e;
       --primary: #6c5ce7;
+      --muted: #b2bec3;
     }
     .container {
-      max-width: 800px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 30px 20px;
     }
-    /* 头部区域 */
     .header {
       text-align: center;
       margin-bottom: 40px;
@@ -52,9 +50,8 @@
       font-weight: bold;
     }
     h1 { margin: 0 0 10px; }
-    .subtitle { color: #636e72; margin-bottom: 20px; }
-
-    /* 卡片区块 */
+    .subtitle { color: var(--muted); margin-bottom: 16px; }
+    .contact { color: var(--muted); font-size: 15px; }
     .section {
       background: var(--card);
       border-radius: 12px;
@@ -68,8 +65,28 @@
       padding-bottom: 8px;
       display: inline-block;
     }
-
-    /* 暗色模式按钮 */
+    .entry { margin-bottom: 22px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .entry-title { font-weight: bold; }
+    .entry-meta { color: var(--muted); font-size: 14px; }
+    .entry-role { color: var(--primary); font-size: 14px; margin-bottom: 6px; }
+    ul { margin: 6px 0; padding-left: 20px; }
+    li { margin-bottom: 6px; line-height: 1.7; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag {
+      background: rgba(9, 132, 227, 0.12);
+      color: var(--primary);
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 13px;
+    }
     .theme-toggle {
       position: fixed;
       top: 20px;
@@ -83,83 +100,145 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       z-index: 999;
     }
-
-    /* 雷达图容器 */
     .chart-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       margin: 0 auto;
     }
-
     .footer {
       text-align: center;
       margin-top: 40px;
-      color: #636e72;
+      color: var(--muted);
       font-size: 14px;
     }
-
-    /* 响应式：手机上看也不乱 */
     @media (max-width: 600px) {
       .container { padding: 20px 15px; }
+      .entry-head { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <!-- 暗色模式切换按钮 -->
   <button class="theme-toggle" id="themeBtn" title="切换暗色模式">🌓</button>
 
   <div class="container">
-  
     <div class="header">
-      <div class="avatar">谢</div>   <!-- 这里写你姓氏首字或放图片 -->
-      <h1>谢佑萍</h1>                  <!-- 你的姓名 -->
-      <p class="subtitle">计算机科学与技术 · 2027届本科 · 求职意向：Java/前端实习</p>
-      <p>📧 2562534259@qq.com  |  📱 138-7787-2606  |  🔗 github.com/xieyouping</p>
+      <div class="avatar">谢</div>
+      <h1>谢佑萍</h1>
+      <p class="subtitle">计算机科学与技术 · 2027届本科 · 求职意向：深圳 · 校招</p>
+      <p class="contact">📧 2562534259@qq.com ｜ 📱 138-7787-2606</p>
     </div>
 
-    <!-- ========== 教育背景 ========== -->
     <div class="section">
       <h2>教育经历</h2>
-      <p><strong>广西民族大学相思湖学院</strong> · 计算机科学与技术 · 本科 · 2023.09 - 2027.06</p>
-      <p>主修课程：数据结构、操作系统、计算机网络、数据库系统、Java程序设计</p>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">广西民族大学相思湖学院</span>
+          <span class="entry-meta">2023.09 - 2027.07</span>
+        </div>
+        <div class="entry-role">计算机科学与技术 ｜ 本科</div>
+        <p>主修课程：Java、C++、数据结构、计算机组成原理、操作系统等计算机核心课程，构建扎实的计算机理论基础，为技术实践落地提供体系化知识支撑。</p>
+      </div>
     </div>
 
-    <!-- ========== 项目经历：把课程设计放上来 ========== -->
     <div class="section">
-      <h2>图书馆管理系统</h2>
-      <div style="margin-bottom:15px;">
-        <strong>📋 学生信息管理系统</strong> | Java + MySQL + Swing | 2024.03 - 2024.06
+      <h2>项目经历</h2>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">mall 电商后台管理系统</span>
+          <span class="entry-meta">Java 开发</span>
+        </div>
+        <p><strong>项目背景：</strong>为掌握企业级后端开发主流 ORM 框架落地实践，搭建轻量化电商后台管理系统原型，覆盖用户、商品、订单三类核心业务场景，梳理电商业务全链路数据流转逻辑，沉淀后端开发标准化流程。</p>
         <ul>
-          <li>独立完成从需求分析、数据库设计到界面开发的全流程</li>
-          <li>实现了学生信息的增删改查、条件筛选和分页功能</li>
-          <li>使用MySQL存储数据，编写了10+条SQL查询语句</li>
+          <li>负责用户、商品、订单三个核心业务模块的需求梳理与后端逻辑开发，完成模块间数据关联逻辑设计，保障业务流程的连贯性与合理性。</li>
+          <li>承担数据库交互层开发工作，完成 Mapper 接口与映射文件编写，实现多条件查询、多表关联、全套 CRUD 操作等核心数据库交互功能。</li>
+          <li>基于 MyBatis 框架搭建 ORM 数据访问层，使用动态 SQL 实现多维度商品查询、订单状态筛选等复杂查询逻辑，降低重复 SQL 编写量，提升代码可维护性。</li>
+          <li>设计多表关联映射规则，处理用户-订单、订单-商品的级联查询与数据同步逻辑，规避多表操作数据不一致问题，保障数据交互准确性。</li>
         </ul>
+        <p><strong>项目成果：</strong>顺利实现三大模块全部业务功能，数据库操作请求响应效率达标，系统运行稳定无核心逻辑漏洞；完整掌握 MyBatis ORM 开发全流程，沉淀复杂 SQL 编写、多表关联处理的实践经验，后端代码开发规范性提升 70%。</p>
       </div>
-      <div>
-        <strong>🔧 简易词法分析器</strong> | C++ | 2024.10 - 2024.12
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">交通信号灯逻辑设计与模拟</span>
+          <span class="entry-meta">2025.09 - 2025.11 ｜ 全栈开发</span>
+        </div>
+        <p><strong>项目背景：</strong>为验证城市交叉路口交通通行管控逻辑合理性、降低实际灯控方案落地调试成本，通过模拟仿真搭建测试环境，为高效通行管控方案的输出提供技术支撑。</p>
         <ul>
-          <li>基于有限状态机识别关键字、标识符、运算符等Token</li>
-          <li>能够处理简单的词法错误并给出提示信息</li>
+          <li>独立承接交通信号灯全流程逻辑设计、功能开发与模拟测试工作，对项目整体交付质量全权负责。</li>
+          <li>梳理交通管控规范与多场景通行需求，明确项目核心功能边界与技术实现标准。</li>
+          <li>依据道路交通管控标准设计标准化灯控时序，覆盖直行、左转、右转全相位的通行、等待、清空全周期规则，确保管控逻辑符合国标要求。</li>
+          <li>搭建车流量感知适配模块，可根据平峰、高峰等不同流量场景动态调整配时方案，同时接入行人过街触发逻辑，兼顾车辆通行效率与行人过街安全需求。</li>
         </ul>
+        <p><strong>项目成果：</strong>所有核心功能均通过多场景仿真测试，通行逻辑合规率达 100%，无逻辑冲突或管控盲区；动态配时方案相较固定配时模式提升路口通行效率 70%，可直接为实际路口灯控方案落地提供参考依据。</p>
       </div>
-      <!-- 你可以随意添加或修改 -->
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">图书馆借阅系统管理</span>
+          <span class="entry-meta">2024.09 - 2024.11 ｜ 前端开发</span>
+        </div>
+        <p><strong>项目背景：</strong>针对传统校园图书借阅流程繁琐、馆藏数据不透明，师生借阅效率低、馆方管理难度大的痛点，启动校园图书借阅管理系统搭建项目，覆盖 200+ 校内师生用户需求。</p>
+        <ul>
+          <li>负责用户需求全链路调研，深度访谈校内 200+ 师生，梳理借阅流程、馆藏管理等场景的核心问题，输出可落地的需求分析文档。</li>
+          <li>主导系统核心模块的功能策划，统筹图书借阅管理、用户权限管控、馆藏数据统计三大核心模块的规则设计，推动线下借阅流程线上化改造。</li>
+          <li>搭建全流程线上借阅链路，打通用户申请、审批、归还、逾期提醒的闭环，替代传统人工登记模式。</li>
+          <li>搭建馆藏数据统计后台，整合近 1 年历史借阅数据，构建借阅热度、用户偏好等多维度分析模型，实现馆藏数据可视化。</li>
+        </ul>
+        <p><strong>项目成果：</strong>核心模块上线后，图书馆日常借阅管理效率提升 30%，大幅降低人工登记的出错率；借阅数据分析模型为图书馆品类采购提供数据支撑，有效优化馆藏资源结构，提升热门图书的供给匹配度。</p>
+      </div>
     </div>
 
-    <!-- ========== 技能雷达图 ========== -->
     <div class="section">
-      <h2>技能掌握</h2>
-      <div class="chart-container">
+      <h2>实习经历</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">苍凌互联网技术（深圳）有限公司</span>
+          <span class="entry-meta">2026.09 - 2026.11</span>
+        </div>
+        <div class="entry-role">行政实习生</div>
+        <ul>
+          <li><strong>行政事务执行：</strong>协助完成部门日常行政保障工作，包括访客接待、会议物料筹备、办公物资盘点与补给，支撑团队日常运营效率，保障内部行政流程顺畅落地。</li>
+          <li><strong>文档与数据支持：</strong>负责员工档案、行政公文等资料的分类整理与数字化归档，协助统计考勤、差旅报销等基础行政数据，提升信息检索效率，降低资料管理风险。</li>
+          <li><strong>活动协助落地：</strong>协同参与公司团建、新人入职培训等内部活动的筹备与执行，配合完成场地协调、流程跟进、参与人员对接等工作，保障活动顺利开展，提升员工体验。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>专业技能</h2>
+      <div class="tag-list">
+        <span class="tag">Java</span>
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">数据库</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">CSS</span>
+        <span class="tag">React</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">前端性能优化</span>
+        <span class="tag">TCP/IP</span>
+        <span class="tag">数据处理与数据分析</span>
+        <span class="tag">Office 套件（Excel / Word / PPT）</span>
+        <span class="tag">Axure 产品设计</span>
+        <span class="tag">竞品分析 / PRD</span>
+        <span class="tag">Jira / 禅道</span>
+        <span class="tag">项目管理</span>
+      </div>
+      <div class="chart-container" style="margin-top:20px;">
         <canvas id="radarChart"></canvas>
       </div>
-      <p style="text-align:center; margin-top:10px; color:#636e72;">数据为自评掌握程度（满分100）</p>
+      <p style="text-align:center; margin-top:10px; color:var(--muted);">数据为自评掌握程度（满分 100）</p>
     </div>
 
-    <!-- ========== 个人优势 ========== -->
     <div class="section">
-      <h2>自我评价</h2>
-      <p>• 基础扎实，熟悉常用数据结构和算法</p>
-      <p>• 动手能力强，热爱通过项目学习，有快速搭建和部署应用的能力</p>
-      <p>• 善于使用Git、trea等工具，具备良好的代码规范意识</p>
+      <h2>荣誉证书</h2>
+      <ul>
+        <li>大学英语四级（CET-4）证书，具备基础英文技术文档阅读能力。</li>
+        <li>全国计算机二级证书，具备计算机通用工具应用能力。</li>
+      </ul>
     </div>
 
     <div class="footer">
@@ -168,34 +247,26 @@
   </div>
 
   <script>
-    // ---------- 暗色模式逻辑 ----------
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
 
-    // 检查本地存储里是否之前切换过暗色模式
     if (localStorage.getItem('theme') === 'dark') {
       body.classList.add('dark');
     }
 
     themeBtn.addEventListener('click', () => {
       body.classList.toggle('dark');
-      // 记住用户选择
-      if (body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-      } else {
-        localStorage.setItem('theme', 'light');
-      }
+      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
     });
 
-    // ---------- 技能雷达图 ----------
     const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, {
       type: 'radar',
       data: {
-        labels: ['Java', 'Python', '数据结构', 'MySQL', 'Linux', '前端基础', 'Git'],
+        labels: ['Java', 'Python', '数据库/SQL', '前端基础', 'Node.js', '数据分析', '产品与协作'],
         datasets: [{
           label: '技能熟练度',
-          data: [80, 65, 75, 70, 50, 60, 85],  // 根据自己情况改这些数字（0-100）
+          data: [72, 65, 70, 68, 60, 66, 62],
           backgroundColor: 'rgba(9, 132, 227, 0.2)',
           borderColor: 'rgba(9, 132, 227, 1)',
           borderWidth: 2,
@@ -216,4 +287,3 @@
   </script>
 </body>
 </html>
- <!-- test --> 
